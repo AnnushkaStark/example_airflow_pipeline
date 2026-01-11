@@ -5,14 +5,18 @@ from .base import BaseSetting
 BASE_DIR = Path(__file__).parent.parent
 
 
-
 class ClickHouseSettings(BaseSetting):
-    pass
-
+    CLICKHOUSE_HOST: str
+    CLICKHOUSE_DB: str
+    CLICKHOUSE_USER: str
+    CLICKHOUSE_PASSWORD: str
+    CLICHOUSE_PORT: int
+    CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: int = 1
 
 
 class KafkaSettings(BaseSetting):
-    pass
+    BOOTSTRAP_URL: str = "kafka:29092"
+    TOPIC: str
 
 
 class ReddisSettings(BaseSetting):
@@ -26,5 +30,7 @@ class HttpxClientSesttings(BaseSetting):
     API_KEY: str
 
 
+click_house_settings = ClickHouseSettings()
+kafka_settings = KafkaSettings()
 redis_settings = ReddisSettings()
 httpx_client_settings = HttpxClientSesttings()
