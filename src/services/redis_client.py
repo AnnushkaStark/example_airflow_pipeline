@@ -8,7 +8,7 @@ logger = logging.getLogger("RedisClientService")
 
 
 class RedisClientService:
-    def __init__(self, ttl: int = 60):
+    def __init__(self, ttl: int = 1440):
         self.ttl = ttl
         self.key = "last_upadate"
 

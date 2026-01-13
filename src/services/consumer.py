@@ -4,7 +4,7 @@ import logging
 from aiokafka import AIOKafkaConsumer
 
 from config.configs import kafka_settings
-from servicies.clickhouse_client import ClickHouseService
+from services.clickhouse_client import ClickHouseService
 
 logger = logging.getLogger("ConsumerService")
 

@@ -11,7 +11,7 @@ from utils.errors import HttpxClientError
 logger = logging.getLogger("HttpxClentService")
 
 
-class HttpxClentService:
+class HttpxClientService:
     @asynccontextmanager
     async def _get_client(self) -> AsyncIterator[AsyncClient]:
         client = AsyncClient(base_url=httpx_client_settings.ROOT_URL)

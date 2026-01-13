@@ -1,15 +1,15 @@
-from servicies.clickhouse_client import ClickHouseService
-from servicies.consumer import ConsumerService
-from servicies.currency_parser import CurrencyParserService
-from servicies.httpx_client import HttpxClentService
-from servicies.producer import ProducerService
-from servicies.redis_client import RedisClientService
+from services.clickhouse_client import ClickHouseService
+from services.consumer import ConsumerService
+from services.currency_parser import CurrencyParserService
+from services.httpx_client import HttpxClientService
+from services.producer import ProducerService
+from services.redis_client import RedisClientService
 
 
 class EltService:
     def __init__(
         self,
-        api_client: HttpxClentService,
+        api_client: HttpxClientService,
         parser: CurrencyParserService,
         redis_client: RedisClientService,
         producer: ProducerService,
