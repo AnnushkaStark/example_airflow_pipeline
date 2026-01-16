@@ -106,18 +106,24 @@ services:
     env_file:
     - .env 
     environment:
-      - PATH=/home/airflow/.local/bin:$PATH
-      - PYTHONPATH=/opt/airflow/src:/opt/airflow/dags
+      - PYTHONPATH=/opt/airflow/src
+      - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/src/dags
+      - AIRFLOW_HOME=/opt/airflow
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow_db/airflow_db
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__CORE__AIRFLOW_HOME=/opt/airflow
+      - AIRFLOW__AUTH_MANAGER__COMMON__AUTH_USER_NAME=admin
+      - AIRFLOW__AUTH_MANAGER__COMMON__AUTH_USER_PASSWORD=admin
+      - AIRFLOW__AUTH_MANAGER__COMMON__AUTH_DEFAULT_USER_ROLE=Admin
+      - AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS=admin:admin
+      - AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS=true
+      - AIRFLOW__CORE__AUTH_MANAGER=airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
     volumes:
-      - ./src:/opt/airflow/src 
-      - ./src/airflow/dags:/opt/airflow/dags
+      - ./src:/opt/airflow/src
+      - ./src/dags:/opt/airflow/dags
     ports:
       - "8080:8080"
-    entrypoint: /airflow_user.sh
-
     networks:
     - app-network
 

@@ -2,7 +2,8 @@ import asyncio
 from datetime import datetime
 from datetime import timedelta
 
-from airflow.operators.python import PythonOperator
+from airflow.providers.standard.operators.python import PythonOperator
+
 
 from airflow import DAG
 from services.clickhouse_client import ClickHouseService
@@ -33,7 +34,7 @@ default_args = {
 with DAG(
     dag_id="exapmle_elt_v1",
     default_args=default_args,
-    schedule_interval="@daily",
+    schedule="@daily",
     start_date=datetime(2026, 1, 12),
     catchup=False,
     tags=["airflow_example"],

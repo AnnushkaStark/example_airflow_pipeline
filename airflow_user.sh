@@ -1,25 +1,19 @@
 #!/bin/bash
-set -e
 
-echo "Waiting for Postgres..."
+
+echo Waiting_for_Postgres
 while ! nc -z airflow_db 5432; do
   sleep 1
 done
-echo "Postgres is up!"
+echo Postgres_is_up
 
+echo Running_Migrations
 airflow db migrate
 
+echo Creating_Admin
+#airflow users create --username admin --firstname admin --lastname admin --role Admin --email admin@example.com --password admin || echo Admin_exists
 
-echo "Creating admin user..."
-airflow users create \
-    --username admin \
-    --firstname admin \
-    --lastname admin \
-    --role Admin \
-    --email admin@example.com \
-    --password admin || echo "Admin already exists."
-
-echo "Starting Scheduler and Webserver..."
-airflow scheduler & 
-exec airflow webserver
-
+echo Starting_Airflow
+airflow scheduler &
+airflow dag-processor &
+exec airflow api-server

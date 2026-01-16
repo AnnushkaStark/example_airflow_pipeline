@@ -46,3 +46,5 @@ class ProducerService:
                 self.topic, key=partition_key, value=rate_data
             )
             logger.info("Сообщение отправлено")
+        # закрываем соединение тк эта штука одноразовая и просыпается раз в день
+        await self.stop()

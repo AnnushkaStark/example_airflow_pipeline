@@ -19,10 +19,12 @@ class RedisClientService:
         if date_timestamp == int(redis_value):
             logger.info("Данные не обновились с последенего запроса")
             return False
+
         if date_timestamp > int(redis_value):
             logger.info("Получено обновление курсов валют")
             await redis_client.set(self.key, date_timestamp)
             return True
+
         return False
 
     async def check_last_date(self, date_timestamp: int) -> bool:
@@ -48,6 +50,7 @@ class RedisClientService:
                     return await self._check_key(
                         date_timestamp=date_timestamp, redis_value=found_key
                     )
+
             logger.info("Запись таймстампа поседнего обновления")
             await redis_client.set(self.key, date_timestamp)
             return True

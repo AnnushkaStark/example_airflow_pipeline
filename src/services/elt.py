@@ -30,6 +30,9 @@ class EltService:
             await self.producer.push_rates(
                 rates_list=self.parser.get_currency_dumps(data=response_data)
             )
+            # Вот тут костыль консумер или группа консумеров должны жить отдельно
+            # Это чисто чтоб End to end запустить и глянуть как он красиво в логах airflow отработает
+            # Выглядит конечно не так эпично  но вроде норм тут композиция можно что угодно напихать
             self.consumer = ConsumerService(
                 clichkouse_service=self.clickhouse_client
             )
