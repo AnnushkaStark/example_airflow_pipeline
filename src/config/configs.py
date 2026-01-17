@@ -10,7 +10,7 @@ class ClickHouseSettings(BaseSetting):
     CLICKHOUSE_DB: str
     CLICKHOUSE_USER: str
     CLICKHOUSE_PASSWORD: str
-    CLICHOUSE_PORT: int
+    CLICKHOUSE_PORT: int
     CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: int = 1
 
 

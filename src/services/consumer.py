@@ -21,7 +21,7 @@ class ConsumerService:
         self.consumer = AIOKafkaConsumer(
             kafka_settings.TOPIC,
             bootstrap_servers=kafka_settings.BOOTSTRAP_URL,
-            group_id="courency_group",
+            group_id="currency_group",
             auto_offset_reset="earliest",
         )
         await self.consumer.start()
@@ -40,9 +40,11 @@ class ConsumerService:
             for msg in messages:
                 batch.append(json.loads(msg.value))
 
-        if batch:
+        if batch and len(batch) > 0:
             await self.cklichouse_service.insert_rates_dict(batch)
             logger.info(f"Получено {len(batch)} записей ")
 
+        else:
+            logger.info("Новых сообщений нет")
         await consumer.stop()
         logger.info("Воркер остановлен")

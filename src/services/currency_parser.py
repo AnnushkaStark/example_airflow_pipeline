@@ -19,7 +19,7 @@ class CurrencyParserService:
     ) -> Dict[str, Any]:
         logger.info("Формирование сообщение для продюссера")
         return {
-            "time_last_update_unix": last_update,
+            "api_timestamp": last_update,
             "currency_code": name,
             "rate": rate,
         }

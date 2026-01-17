@@ -6,5 +6,5 @@ class HttpxClientError(BaseError):
     pass
 
 
-class ClichkhouseError(BaseError):
+class ClickhouseError(BaseError):
     pass
