@@ -3,9 +3,8 @@ from typing import Any
 from typing import Dict
 from typing import List
 
-from database.databases import get_clickhouse_conn
 from config.configs import click_house_settings
-
+from database.databases import get_clickhouse_conn
 
 logger = logging.getLogger("ClickHouseService")
 

@@ -2,10 +2,9 @@ import asyncio
 from datetime import datetime
 from datetime import timedelta
 
+from airflow import DAG
 from airflow.providers.standard.operators.python import PythonOperator
 
-
-from airflow import DAG
 from services.clickhouse_client import ClickHouseService
 from services.currency_parser import CurrencyParserService
 from services.elt import EltService

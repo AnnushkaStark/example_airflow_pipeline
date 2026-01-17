@@ -1,10 +1,11 @@
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
+
+import clickhouse_connect
 from redis.asyncio import Redis
 
 from config.configs import click_house_settings
 from config.configs import redis_settings
-import clickhouse_connect
 from sql import create_table
 
 
