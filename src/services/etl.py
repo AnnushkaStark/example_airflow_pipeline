@@ -6,7 +6,7 @@ from services.producer import ProducerService
 from services.redis_client import RedisClientService
 
 
-class EltService:
+class EtlService:
     def __init__(
         self,
         api_client: HttpxClientService,
@@ -22,7 +22,7 @@ class EltService:
         self.clickhouse_client = clickhouse_client
         self.consumer = None
 
-    async def start_elt_executor(self) -> None:
+    async def start_etl_executor(self) -> None:
         response_data = await self.api_client.get_currency_rates()
         if await self.redis_client.check_last_date(
             date_timestamp=self.parser._get_api_timestamp(data=response_data)

@@ -16,16 +16,15 @@ class ClickHouseService:
     async def insert_rates_dict(
         self, rates_dicts: List[Dict[str, Any]]
     ) -> None:
-        logger.info("Сохранение данных о курсах валют")
+        logger.info(f"Сохранение данных о курсах валют")
         async with get_clickhouse_conn() as conn:
-            # if not len(rates_dicts) or rates_dicts is None:
-            # logger.info("Нет данных для вставки, пропускаем...")
-            # return
-
+            #data_to_insert = [d.values() for d in rates_dicts]
             await conn.insert(
                 table="currency_rates",
-                data=rates_dicts,
+                data=[tuple(d.values()) for d in rates_dicts],
                 database=click_house_settings.CLICKHOUSE_DB,
                 column_names=self.rates_columns,
+                column_oriented=False,
+                column_type_names=["String", 'Float64', 'DateTime'] 
             )
             logger.info("Данные сохранены")
