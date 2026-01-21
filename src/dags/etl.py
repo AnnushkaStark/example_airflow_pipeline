@@ -2,7 +2,8 @@ import asyncio
 from datetime import datetime
 from datetime import timedelta
 
-from airflow.sdk import dag, task 
+from airflow.sdk import dag
+from airflow.sdk import task
 
 from services.clickhouse_client import ClickHouseService
 from services.currency_parser import CurrencyParserService
@@ -38,7 +39,7 @@ default_args = {
     start_date=datetime(2026, 1, 12),
     catchup=False,
     tags=["airflow_3_sdk"],
-    default_args=default_args
+    default_args=default_args,
 )
 def my_etl_dag():
     run_etl()

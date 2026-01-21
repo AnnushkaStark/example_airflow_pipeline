@@ -5,6 +5,7 @@ from typing import List
 
 from config.configs import click_house_settings
 from database.databases import get_clickhouse_conn
+from sql.insert import insert_query
 
 logger = logging.getLogger("ClickHouseService")
 
@@ -16,15 +17,12 @@ class ClickHouseService:
     async def insert_rates_dict(
         self, rates_dicts: List[Dict[str, Any]]
     ) -> None:
-        logger.info(f"Сохранение данных о курсах валют")
+        logger.info("Сохранение данных о курсах валют")
         async with get_clickhouse_conn() as conn:
-            #data_to_insert = [d.values() for d in rates_dicts]
-            await conn.insert(
-                table="currency_rates",
-                data=[tuple(d.values()) for d in rates_dicts],
-                database=click_house_settings.CLICKHOUSE_DB,
-                column_names=self.rates_columns,
-                column_oriented=False,
-                column_type_names=["String", 'Float64', 'DateTime'] 
-            )
+            data = [
+                (d["currency_code"], float(d["rate"]), d["api_timestamp"])
+                for d in rates_dicts
+            ]
+
+            await conn.command(data=data, cmd=insert_query)
             logger.info("Данные сохранены")

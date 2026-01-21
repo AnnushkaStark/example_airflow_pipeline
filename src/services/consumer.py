@@ -46,5 +46,5 @@ class ConsumerService:
 
         else:
             logger.info("Новых сообщений нет")
-        await consumer.stop()
+        await self.consumer.stop()
         logger.info("Воркер остановлен")
