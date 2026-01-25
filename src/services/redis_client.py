@@ -22,7 +22,7 @@ class RedisClientService:
 
         if date_timestamp > int(redis_value):
             logger.info("Получено обновление курсов валют")
-            await redis_client.set(self.key, date_timestamp)
+            await redis_client.set(self.key, date_timestamp, ex=self.ttl)
             return True
 
         return False
@@ -52,5 +52,5 @@ class RedisClientService:
                     )
 
             logger.info("Запись таймстампа поседнего обновления")
-            await redis_client.set(self.key, date_timestamp)
+            await redis_client.set(self.key, date_timestamp, ex=self.ttl)
             return True
